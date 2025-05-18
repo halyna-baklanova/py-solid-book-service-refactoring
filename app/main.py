@@ -62,17 +62,16 @@ SERIALIZER_HANDLERS: dict[str, Type[object]] = {
 
 
 def main(book: Book, commands: list[tuple[str, str]]) -> None | str:
-    result = []
+
     for cmd, method_type in commands:
         if cmd == "display":
-            DISPLAY_HANDLERS[method_type]().display(book.content)
+            return DISPLAY_HANDLERS[method_type]().display(book.content)
 
         elif cmd == "print":
-            PRINT_HANDLERS[method_type]().print_book(book)
+            return PRINT_HANDLERS[method_type]().print_book(book)
 
         elif cmd == "serialize":
-            result = SERIALIZER_HANDLERS[method_type]().serialize(book)
-    return result
+            return SERIALIZER_HANDLERS[method_type]().serialize(book)
 
 
 if __name__ == "__main__":
